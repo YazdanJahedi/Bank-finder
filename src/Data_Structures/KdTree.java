@@ -28,6 +28,14 @@ public class KdTree {
         size = 0;
     }
 
+    public boolean isEmpty(){
+        return size == 0;
+    }
+
+    public int size(){
+        return size;
+    }
+
     private Node addNode(Node root, Bank bank, int level) {
         if (root == null) {
             return new Node(bank);
@@ -53,6 +61,7 @@ public class KdTree {
 
     public void add(Bank bank) {
         root = addNode(root, bank, 0);
+        size++;
     }
 
     public void printTreePreOrder(Node node) {
