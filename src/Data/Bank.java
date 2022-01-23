@@ -4,16 +4,24 @@ public class Bank {
     protected Coordinates coordinates;
     protected String bankName;
 
-    protected Bank(Coordinates coordinates, String bankName) {
+    public Bank(Coordinates coordinates, String bankName) {
         this.coordinates = coordinates;
         this.bankName = bankName;
     }
 
-    protected String getBankName() {
+    public String getBankName() {
         return bankName;
     }
 
-    protected Coordinates getCoordinates() {
+    public Coordinates getCoordinates() {
         return coordinates;
+    }
+
+    @Override
+    public String toString() {
+        return "Bank{" +
+                "coordinates=" + coordinates +
+                ", bankName='" + bankName + '\'' +
+                '}';
     }
 }
