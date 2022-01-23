@@ -1,22 +1,19 @@
 package Data;
 
 public class Coordinates {
-    private Integer x;
-    private Integer y;
+    private final int x;
+    private final int y;
 
-    public void setX(Integer x) {
+    Coordinates(int x, int y) {
         this.x = x;
-    }
-
-    public void setY(Integer y) {
         this.y = y;
     }
 
-    public Integer getX() {
+    public int getX() {
         return x;
     }
 
-    public Integer getY() {
+    public int getY() {
         return y;
     }
 
