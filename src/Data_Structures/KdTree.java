@@ -1,7 +1,6 @@
 package Data_Structures;
 
 import Data.Bank;
-import Data.Coordinates;
 
 // Implementation of k-d tree
 // this tree contains Bank Nodes
@@ -28,11 +27,11 @@ public class KdTree {
         size = 0;
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return size == 0;
     }
 
-    public int size(){
+    public int size() {
         return size;
     }
 
@@ -71,22 +70,8 @@ public class KdTree {
         printTreePreOrder(node.r);
     }
 
-    public void printTreePreOrder(){
+    public void printTreePreOrder() {
         printTreePreOrder(root);
     }
 
-
-    public static void main(String[] args) {
-        KdTree t = new KdTree();
-        //  (6, 12), (9, 1), (2, 7), (10, 19)
-        t.add(new Bank(new Coordinates(3, 6), "A"));
-        t.add(new Bank(new Coordinates(17, 15), "A"));
-        t.add(new Bank(new Coordinates(13, 15), "A"));
-        t.add(new Bank(new Coordinates(6, 12), "A"));
-        t.add(new Bank(new Coordinates(9, 1), "A"));
-        t.add(new Bank(new Coordinates(2, 7), "A"));
-        t.add(new Bank(new Coordinates(10, 19), "A"));
-        t.printTreePreOrder();
-
-    }
 }
