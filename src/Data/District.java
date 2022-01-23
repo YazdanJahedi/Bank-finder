@@ -161,12 +161,12 @@ public class District {
 
     @Override
     public String toString() {
-        return "District{" +
+        return "District {" +
                 "nw=" + nw +
                 ", ne=" + ne +
                 ", sw=" + sw +
                 ", se=" + se +
                 '}';
     }
-    
+
 }
