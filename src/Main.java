@@ -35,12 +35,9 @@ public class Main {
                 Coordinates c4 = new Coordinates(x, y);
                 System.out.println("Enter District name:");
                 String dn = scanner.next();
-                districts.add(new District(c1,c2,c3,c4,dn));
+                districts.add(new District(c1, c2, c3, c4, dn));
 
                 districts.printTreePreorder();
-                System.out.println(districts.find("A"));
-                System.out.println(districts.find("B"));
-                System.out.println("~ ~ ~~ ~ ~ ~ ~ ~ ~ ");
 
             } else if (command.equals("addB")) {
                 System.out.println("Adding a new Bank...\n");
