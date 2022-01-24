@@ -17,6 +17,11 @@ public class KdTree {
             this.bank = bank;
             r = l = null;
         }
+
+        @Override
+        public String toString() {
+            return bank.toString();
+        }
     }
 
     private final int k;
@@ -66,13 +71,16 @@ public class KdTree {
     public void add(Bank bank) {
         root = addNode(root, bank, 0);
         size++;
+        if(bank instanceof BankBranch){
+            // todo : add to the bank's branches
+        }
     }
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     // just based on coordinates
-    private boolean findNode(Node root, Bank bank, int level) {
-        if (root == null) return false;
-        if (root.bank.equals(bank)) return true;
+    //
+    private Node findNode(Node root, Bank bank, int level) {
+        if (root == null || root.bank.equals(bank)) return root;
 
         if (level % k == 0) {
             if (root.bank.getCoordinates().getX() > bank.getCoordinates().getX())
@@ -90,7 +98,7 @@ public class KdTree {
 
     }
 
-    public boolean find(Bank bank) {
+    public Node find(Bank bank) {
         return findNode(root, bank, 0);
     }
 
