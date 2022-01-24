@@ -1,10 +1,9 @@
 package Data;
 
-public class CentralBank extends Bank {
-    // todo: list of branches!
-    // todo: and related methods!
+import Data_Structures.KdTree;
 
-    // todo : number of branches / mostBr ...
+public class CentralBank extends Bank {
+    KdTree branches = new KdTree();
 
     public CentralBank(Coordinates coordinates, String bankName) {
         super(coordinates, bankName);
