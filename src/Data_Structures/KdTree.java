@@ -21,7 +21,7 @@ public class KdTree {
     private Node root;
     private int size;
 
-    KdTree() {
+    public KdTree() {
         k = 2;
         root = null;
         size = 0;
@@ -63,7 +63,7 @@ public class KdTree {
         size++;
     }
 
-    public void printTreePreOrder(Node node) {
+    private void printTreePreOrder(Node node) {
         if (node == null) return;
         System.out.println(node.bank);
         printTreePreOrder(node.l);
