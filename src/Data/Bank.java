@@ -24,4 +24,10 @@ public class Bank {
                 ", bankName='" + bankName + '\'' +
                 '}';
     }
+
+    public boolean equals(Bank o) {
+        if(o == null) return false;
+        return this.coordinates.equals(o.coordinates);
+    }
+
 }
