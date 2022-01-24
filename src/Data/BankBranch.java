@@ -12,4 +12,12 @@ public class BankBranch extends Bank{
         return branchName;
     }
 
+    @Override
+    public String toString() {
+        return "Branch{" +
+                "coordinates=" + coordinates +
+                ", bankName='" + bankName + '\'' +
+                ", branchName='" + branchName + '\'' +
+                '}';
+    }
 }
