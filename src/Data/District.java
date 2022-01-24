@@ -9,7 +9,11 @@ public class District {
     private final Coordinates sw; // south-west
     private final Coordinates se; // south-east
 
-    District(Coordinates c1, Coordinates c2, Coordinates c3, Coordinates c4) {
+    // district name
+    private final String name;
+
+    District(Coordinates c1, Coordinates c2, Coordinates c3, Coordinates c4, String name) {
+        this.name = name;
         if (c1.getX() != c2.getX() && c1.getY() != c2.getY()) {
             // c1-c2
             if (c1.getX() >= c2.getX()) {
@@ -159,14 +163,21 @@ public class District {
                 && c.getY() <= nw.getY() && c.getY() >= se.getY();
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
-        return "District {" +
-                "nw=" + nw +
+        return "District{" +
+                "name='" + name + '\'' +
                 ", ne=" + ne +
                 ", sw=" + sw +
-                ", se=" + se +
                 '}';
     }
 
+    public boolean equals(District o){
+        if(o == null) return false;
+        return o.getName().equals(this.getName());
+    }
 }
