@@ -12,7 +12,7 @@ public class District {
     // district name
     private final String name;
 
-    District(Coordinates c1, Coordinates c2, Coordinates c3, Coordinates c4, String name) {
+    public District(Coordinates c1, Coordinates c2, Coordinates c3, Coordinates c4, String name) {
         this.name = name;
         if (c1.getX() != c2.getX() && c1.getY() != c2.getY()) {
             // c1-c2

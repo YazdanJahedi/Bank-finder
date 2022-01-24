@@ -13,12 +13,17 @@ public class BSTree {
         Node(District district) {
             this.district = district;
         }
+
+        @Override
+        public String toString() {
+            return district.toString();
+        }
     }
 
     private Node root;
     private int size;
 
-    BSTree() {
+    public BSTree() {
         root = null;
         size = 0;
     }
@@ -48,8 +53,10 @@ public class BSTree {
     }
 
     public void add(District district) {
-        addNode(root, district);
+        root = addNode(root, district);
+        size++;
     }
+
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     private Node findNode(Node root, String district) {
         if (root == null || root.district.getName().equals(district))
@@ -64,6 +71,7 @@ public class BSTree {
     public Node find(String districtName) {
         return findNode(root, districtName);
     }
+
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     private void printTreePreorder(Node root) {
         if (root == null) return;
