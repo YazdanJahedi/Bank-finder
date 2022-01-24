@@ -51,7 +51,8 @@ public class Main {
             } else if (command.equals("availB")) {
 
             } else {
-                System.out.println("ERROR: Command is not valid");
+                if (!command.equals("exit"))
+                    System.out.println("ERROR: Command is not valid");
             }
         } while (!command.equals("exit"));
     }
