@@ -4,6 +4,7 @@ import Data.Bank;
 import Data.BankBranch;
 import Data.Coordinates;
 
+
 // Implementation of k-d tree
 // this tree contains Bank Nodes
 public class KdTree {
@@ -71,35 +72,34 @@ public class KdTree {
     public void add(Bank bank) {
         root = addNode(root, bank, 0);
         size++;
-        if(bank instanceof BankBranch){
-            // todo : add to the bank's branches
-        }
+//        if (bank instanceof BankBranch)
+//            add(bank);
+
     }
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     // just based on coordinates
-    //
-    private Node findNode(Node root, Bank bank, int level) {
+    private Node findCoordinate(Node root, Bank bank, int level) {
         if (root == null || root.bank.equals(bank)) return root;
 
         if (level % k == 0) {
             if (root.bank.getCoordinates().getX() > bank.getCoordinates().getX())
-                return findNode(root.l, bank, level + 1);
+                return findCoordinate(root.l, bank, level + 1);
             else
-                return findNode(root.r, bank, level + 1);
+                return findCoordinate(root.r, bank, level + 1);
         }
         // based on y
         else {
             if (root.bank.getCoordinates().getY() > bank.getCoordinates().getY())
-                return findNode(root.l, bank, level + 1);
+                return findCoordinate(root.l, bank, level + 1);
             else
-                return findNode(root.r, bank, level + 1);
+                return findCoordinate(root.r, bank, level + 1);
         }
 
     }
 
     public Node find(Bank bank) {
-        return findNode(root, bank, 0);
+        return findCoordinate(root, bank, 0);
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -146,10 +146,10 @@ public class KdTree {
         tr.printTreePreOrder();
         System.out.println(tr.size());
         System.out.println(tr.find(new BankBranch(new Coordinates(17, 15), "C", "C")));
-        System.out.println(tr.find(new BankBranch(new Coordinates(3, 6), " " , " ")));
-        System.out.println(tr.find(new BankBranch(new Coordinates(10, 19), "C" , "R")));
-        System.out.println(tr.find(new BankBranch(new Coordinates(11, 19), "C" , "R")));
-        System.out.println(tr.find(new BankBranch(new Coordinates(17, 14), "C" , "R")));
+        System.out.println(tr.find(new BankBranch(new Coordinates(3, 6), " ", " ")));
+        System.out.println(tr.find(new BankBranch(new Coordinates(10, 19), "C", "R")));
+        System.out.println(tr.find(new BankBranch(new Coordinates(11, 19), "C", "R")));
+        System.out.println(tr.find(new BankBranch(new Coordinates(17, 14), "C", "R")));
     }
 
 }

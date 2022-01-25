@@ -1,4 +1,7 @@
+package Main;
+
 import Data.BankBranch;
+import Data.CentralBank;
 import Data.Coordinates;
 import Data.District;
 import Data_Structures.BSTree;
@@ -44,11 +47,12 @@ public class Main {
                 System.out.println("Enter Bank coordinates ( like this pattern: x y ):");
                 int x = scanner.nextInt();
                 int y = scanner.nextInt();
+                Coordinates coordinates = new Coordinates(x, y);
                 System.out.println("Enter Bank name:");
                 String bn = scanner.next(); // bank name
                 System.out.println("Enter number of branches and their names:");
-                // todo
-                // centralBank.add();
+                centralBanks.add(new CentralBank(coordinates, bn));
+                centralBanks.printTreePreOrder();
             } else if (command.equals("addBr")) {
                 System.out.println("Adding a new Branch...\n");
                 System.out.println("Enter Branch coordinates ( like this pattern: x y ):");
