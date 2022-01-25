@@ -7,12 +7,12 @@ import Data_Structures.KdTree;
 import java.util.Scanner;
 
 public class Main {
+    public static BSTree districts = new BSTree();
+    public static KdTree centralBanks = new KdTree();
+    public static KdTree branches = new KdTree();
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
-        BSTree districts = new BSTree();
-        KdTree centralBanks = new KdTree();
-        KdTree branches = new KdTree();
 
         String command;
         do {
