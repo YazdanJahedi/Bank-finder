@@ -9,4 +9,12 @@ public class CentralBank extends Bank {
         super(coordinates, bankName);
     }
 
+    @Override
+    public String toString() {
+        return "CentralBank{" +
+                "coordinates=" + coordinates +
+                ", bankName='" + bankName + '\'' +
+                ", number of branches=" + branches.size() +
+                '}';
+    }
 }
