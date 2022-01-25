@@ -68,8 +68,10 @@ public class BSTree {
         return findNode(root.l, district);
     }
 
-    public Node find(String districtName) {
-        return findNode(root, districtName);
+    public District find(String districtName) {
+        Node n = findNode(root, districtName);
+        if (n != null) return n.district;
+        return null;
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
