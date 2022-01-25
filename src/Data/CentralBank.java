@@ -9,6 +9,10 @@ public class CentralBank extends Bank {
         super(coordinates, bankName);
     }
 
+    public KdTree getBranches() {
+        return branches;
+    }
+
     @Override
     public String toString() {
         return "CentralBank{" +

@@ -1,16 +1,14 @@
 package Main;
 
-import Data.BankBranch;
-import Data.CentralBank;
-import Data.Coordinates;
-import Data.District;
-import Data_Structures.BSTree;
-import Data_Structures.KdTree;
+import Data.*;
+import Data_Structures.*;
 
+import javax.swing.plaf.IconUIResource;
 import java.util.Scanner;
 
 public class Main {
     public static BSTree districts = new BSTree();
+    public static HashingLinkedList centralBanksList = new HashingLinkedList();
     public static KdTree centralBanks = new KdTree();
     public static KdTree branches = new KdTree();
 
@@ -41,6 +39,7 @@ public class Main {
                 districts.add(new District(c1, c2, c3, c4, dn));
 
                 districts.printTreePreorder();
+                System.out.println("~~ ~ ~ ~ ~ ~~  ");
 
             } else if (command.equals("addB")) {
                 System.out.println("Adding a new Bank...\n");
@@ -50,9 +49,17 @@ public class Main {
                 Coordinates coordinates = new Coordinates(x, y);
                 System.out.println("Enter Bank name:");
                 String bn = scanner.next(); // bank name
-                System.out.println("Enter number of branches and their names:");
-                centralBanks.add(new CentralBank(coordinates, bn));
+
+                CentralBank cb = new CentralBank(coordinates, bn);
+                centralBanks.add(cb);
+                centralBanksList.add(cb);
+
+                System.out.println("Main Tree:");
                 centralBanks.printTreePreOrder();
+                System.out.println(" ~ ~ ~ ~ ~ ~ ~ ~");
+                System.out.println("Hashing list:");
+                centralBanksList.print();
+                System.out.println(" ~ ~ ~ ~ ~ ~ ~ ~");
             } else if (command.equals("addBr")) {
                 System.out.println("Adding a new Branch...\n");
                 System.out.println("Enter Branch coordinates ( like this pattern: x y ):");
@@ -63,15 +70,33 @@ public class Main {
                 String bn = scanner.next(); // bank name
                 System.out.println("Enter Branch name:");
                 String brn = scanner.next(); // branch name
-                BankBranch branch = new BankBranch(coordinates, bn, brn);
-                branches.add(branch);
+                BankBranch br = new BankBranch(coordinates, bn, brn);
+
+                CentralBank cb = (CentralBank) centralBanksList.search(bn);
+                if (cb == null) {
+                    System.out.println("** ERROR: this bank does not exist in database");
+                    continue;
+                }
+                cb.getBranches().add(br);
+                branches.add(br);
+                System.out.println("Main tree");
                 branches.printTreePreOrder();
+                System.out.println("~ ~ ~ ~~ ~~ ~ ~ ~");
             } else if (command.equals("delBr")) {
 
             } else if (command.equals("listB")) {
 
             } else if (command.equals("listBr")) {
-
+                System.out.println("Searching for Bank branches...\n");
+                System.out.println("Enter Bank name:");
+                String bn = scanner.next();
+                CentralBank cb = (CentralBank) centralBanksList.search(bn);
+                if (cb == null) {
+                    System.out.println("** ERROR: this bank does not exist in database");
+                    continue;
+                }
+                System.out.println("Here are " + bn + "branches:\n");
+                cb.getBranches().printTreePreOrder();
             } else if (command.equals("nearB")) {
 
             } else if (command.equals("nearBr")) {
@@ -80,7 +105,7 @@ public class Main {
 
             } else {
                 if (!command.equals("exit"))
-                    System.out.println("ERROR: Command is not valid");
+                    System.out.println("** ERROR: Command is not valid");
             }
         } while (!command.equals("exit"));
     }
