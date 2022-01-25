@@ -11,6 +11,15 @@ public class Main {
     public static KdTree centralBanks = new KdTree();
     public static KdTree branches = new KdTree();
 
+    public static boolean pointIsFree(Bank bank) {
+        if (centralBanks.find(bank) == null && branches.find(bank) == null)
+            return true;
+        else {
+            System.err.println("** ERROR: coordinates is invalid");
+            return false;
+        }
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -50,6 +59,9 @@ public class Main {
                 String bn = scanner.next(); // bank name
 
                 CentralBank cb = new CentralBank(coordinates, bn);
+
+                if (!pointIsFree(cb)) continue;
+
                 centralBanks.add(cb);
                 centralBanksList.add(cb);
 
@@ -70,10 +82,11 @@ public class Main {
                 System.out.println("Enter Branch name:");
                 String brn = scanner.next(); // branch name
                 BankBranch br = new BankBranch(coordinates, bn, brn);
+                if (!pointIsFree(br)) continue;
 
                 CentralBank cb = (CentralBank) centralBanksList.search(bn);
                 if (cb == null) {
-                    System.out.println("** ERROR: this bank does not exist in database");
+                    System.err.println("** ERROR: this bank does not exist in database");
                     continue;
                 }
                 cb.getBranches().add(br);
@@ -88,8 +101,8 @@ public class Main {
                 System.out.println("Enter District name:");
                 String dn = scanner.next(); // district name
                 District d = districts.find(dn);
-                if(d == null){
-                    System.out.println("** ERROR: this district does not exist in database");
+                if (d == null) {
+                    System.err.println("** ERROR: this district does not exist in database");
                     continue;
                 }
                 centralBanks.printBanksInDistrict(d);
@@ -100,7 +113,7 @@ public class Main {
                 String bn = scanner.next();
                 CentralBank cb = (CentralBank) centralBanksList.search(bn);
                 if (cb == null) {
-                    System.out.println("** ERROR: this bank does not exist in database");
+                    System.err.println("** ERROR: this bank does not exist in database");
                     continue;
                 }
                 System.out.println("Here are " + bn + "branches:\n");
@@ -113,7 +126,7 @@ public class Main {
 
             } else {
                 if (!command.equals("exit"))
-                    System.out.println("** ERROR: Command is not valid");
+                    System.err.println("** ERROR: Command is not valid");
             }
         } while (!command.equals("exit"));
     }
