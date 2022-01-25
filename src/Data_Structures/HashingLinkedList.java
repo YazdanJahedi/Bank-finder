@@ -80,14 +80,12 @@ public class HashingLinkedList {
         public String toString() {
             String ans = "[";
             Node q = head;
-            if (q == null)
-                ans += "]";
-            else
+            if (q != null)
                 while (q != null) {
                     ans += q.bank + " ";
                     q = q.next;
                 }
-            return ans;
+            return ans + "]";
         }
 
     }
