@@ -152,5 +152,11 @@ public class HashingLinkedList {
         System.out.println(a.search(new CentralBank(new Coordinates(1, 7), "ali")));
         System.out.println(a.search(new CentralBank(new Coordinates(1, 7), "tiger")));
         System.out.println(a.search(new CentralBank(new Coordinates(1, 7), "tehran")));
+        System.out.println("_________________________________________________________________");
+        System.out.println("_________________________________________________________________");
+        System.out.println(a.search("bita"));
+        System.out.println(a.search("tiger"));
+        System.out.println(a.search("Abin"));
+        System.out.println(a.search("haha"));
     }
 }
