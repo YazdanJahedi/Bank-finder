@@ -167,6 +167,22 @@ public class District {
         return name;
     }
 
+    public Coordinates getNe() {
+        return ne;
+    }
+
+    public Coordinates getNw() {
+        return nw;
+    }
+
+    public Coordinates getSe() {
+        return se;
+    }
+
+    public Coordinates getSw() {
+        return sw;
+    }
+
     @Override
     public String toString() {
         return "District{" +
@@ -176,8 +192,8 @@ public class District {
                 '}';
     }
 
-    public boolean equals(District o){
-        if(o == null) return false;
+    public boolean equals(District o) {
+        if (o == null) return false;
         return o.getName().equals(this.getName());
     }
 }

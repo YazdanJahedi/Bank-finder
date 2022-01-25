@@ -3,7 +3,6 @@ package Main;
 import Data.*;
 import Data_Structures.*;
 
-import javax.swing.plaf.IconUIResource;
 import java.util.Scanner;
 
 public class Main {
@@ -85,6 +84,15 @@ public class Main {
             } else if (command.equals("delBr")) {
 
             } else if (command.equals("listB")) {
+                System.out.println("Searching for Banks in a District...\n");
+                System.out.println("Enter District name:");
+                String dn = scanner.next(); // district name
+                District d = districts.find(dn);
+                if(d == null){
+                    System.out.println("** ERROR: this district does not exist in database");
+                    continue;
+                }
+                centralBanks.printBanksInDistrict(d);
 
             } else if (command.equals("listBr")) {
                 System.out.println("Searching for Bank branches...\n");

@@ -3,6 +3,7 @@ package Data_Structures;
 import Data.Bank;
 import Data.BankBranch;
 import Data.Coordinates;
+import Data.District;
 
 
 // Implementation of k-d tree
@@ -112,6 +113,47 @@ public class KdTree {
 
     public void printTreePreOrder() {
         printTreePreOrder(root);
+    }
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    private void printBanksInDistrict(Node root, District district, int dpt) {
+        if (root == null) return;
+        if (district.isInDistrict(root.bank.getCoordinates())) {
+            System.out.println(root.bank);
+            printBanksInDistrict(root.l, district, dpt + 1);
+            printBanksInDistrict(root.r, district, dpt + 1);
+        } else {
+            // based on x
+            if (dpt % k == 0) {
+                int bankX = root.bank.getCoordinates().getX();
+
+                if (bankX < district.getSw().getX()) {
+                    printBanksInDistrict(root.r, district, dpt + 1);
+                } else if (bankX > district.getNe().getX()) {
+                    printBanksInDistrict(root.l, district, dpt + 1);
+                } else {
+                    printBanksInDistrict(root.l, district, dpt + 1);
+                    printBanksInDistrict(root.r, district, dpt + 1);
+                }
+            }
+            // based on y
+            else {
+                int bankY = root.bank.getCoordinates().getY();
+
+                if (bankY < district.getSe().getY()) {
+                    printBanksInDistrict(root.r, district, dpt + 1);
+                } else if (bankY > district.getNw().getY()) {
+                    printBanksInDistrict(root.l, district, dpt + 1);
+                } else {
+                    printBanksInDistrict(root.l, district, dpt + 1);
+                    printBanksInDistrict(root.r, district, dpt + 1);
+                }
+            }
+        }
+    }
+
+    public void printBanksInDistrict(District district) {
+        printBanksInDistrict(root, district, 0);
     }
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
