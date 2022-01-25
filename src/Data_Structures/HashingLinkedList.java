@@ -66,6 +66,16 @@ public class HashingLinkedList {
             return null;
         }
 
+        Node search(String bankName) {
+            Node q = head;
+            while (q != null) {
+                if (q.bank.getBankName().equals(bankName))
+                    return q;
+                q = q.next;
+            }
+            return null;
+        }
+
         @Override
         public String toString() {
             String ans = "[";
@@ -102,6 +112,15 @@ public class HashingLinkedList {
         int firstChar = bank.getBankName().toLowerCase().charAt(0);
         int index = firstChar - (int) 'a';
         LinkedList.Node ans = hashTable[index].search(bank);
+        if (ans != null) return ans.bank;
+        return null;
+    }
+
+    // search is based on bank's name
+    public Bank search(String bankName) {
+        int firstChar = bankName.toLowerCase().charAt(0);
+        int index = firstChar - (int) 'a';
+        LinkedList.Node ans = hashTable[index].search(bankName);
         if (ans != null) return ans.bank;
         return null;
     }
