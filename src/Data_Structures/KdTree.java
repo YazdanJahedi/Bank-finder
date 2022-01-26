@@ -148,6 +148,66 @@ public class KdTree {
     public void printBanksInDistrict(District district) {
         printBanksInDistrict(root, district, 0);
     }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    private Node findNearestNode(Node root, Coordinates c, Node bestNode, int dpt) {
+        if (root == null)
+            return bestNode;
+
+        double rootDist = Math.sqrt(Math.pow(root.bank.getCoordinates().getX() - c.getX(), 2) +
+                Math.pow(root.bank.getCoordinates().getY() - c.getY(), 2));
+        double bestDist = Math.sqrt(Math.pow(bestNode.bank.getCoordinates().getX() - c.getX(), 2) +
+                Math.pow(bestNode.bank.getCoordinates().getY() - c.getY(), 2));
+
+        if (rootDist < bestDist)
+            bestNode = root;
+
+        Node goodPart, badPart;
+        // based on x
+        if (dpt % k == 0) {
+            if (root.bank.getCoordinates().getX() < c.getX()) {
+                goodPart = root.r;
+                badPart = root.l;
+            } else {
+                goodPart = root.l;
+                badPart = root.r;
+            }
+
+        }
+        // based on y
+        else {
+            if (root.bank.getCoordinates().getY() < c.getY()) {
+                goodPart = root.r;
+                badPart = root.l;
+            } else {
+                goodPart = root.l;
+                badPart = root.r;
+            }
+        }
+        bestNode = findNearestNode(goodPart, c, bestNode, dpt + 1);
+
+        // based on x
+        if (dpt % k == 0) {
+            if (bestDist < Math.abs(root.bank.getCoordinates().getX() - c.getX()))
+                bestNode = findNearestNode(badPart, c, bestNode, dpt + 1);
+        }
+        // based on y
+        else {
+            if (bestDist < Math.abs(root.bank.getCoordinates().getY() - c.getY()))
+                bestNode = findNearestNode(badPart, c, bestNode, dpt + 1);
+        }
+
+        return bestNode;
+    }
+
+    public Bank findNearest(Coordinates c) {
+        Node node = findNearestNode(root, c, root, 0);
+        if (node != null) {
+            return node.bank;
+        }
+        System.err.println("** ERROR: there is no bank in database");
+        return null;
+    }
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
@@ -164,37 +224,7 @@ public class KdTree {
         t.printTreePreOrder();
         System.out.println(t.size());
         System.out.println("~ ~ ~ ~ ~ ~ ");
-        t.add(new Bank(new Coordinates(13, 15), "R"));
-        t.add(new Bank(new Coordinates(3, 6), "H"));
-        t.add(new Bank(new Coordinates(6, 12), "R"));
-        t.add(new Bank(new Coordinates(10, 19), "R"));
-        t.add(new Bank(new Coordinates(9, 1), "R"));
-        t.printTreePreOrder();
-        System.out.println(t.size());
-
-//        System.out.println(t.size());
-//        System.out.println(t.find(new Bank(new Coordinates(17, 15), "C")));
-//        System.out.println(t.find(new Bank(new Coordinates(17, 15), "T")));
-//
-//
-//        System.out.println("! ! ! !! ! ! ! ! ! ! ! ");
-//
-//        KdTree tr = new KdTree();
-//        tr.add(new BankBranch(new Coordinates(3, 6), "A", "A"));
-//        tr.add(new BankBranch(new Coordinates(2, 7), "B", "B"));
-//        tr.add(new BankBranch(new Coordinates(17, 15), "C", "C"));
-//        tr.add(new BankBranch(new Coordinates(6, 12), "D", "D"));
-//        tr.add(new BankBranch(new Coordinates(9, 1), "E", "E"));
-//        tr.add(new BankBranch(new Coordinates(13, 15), "F", "F"));
-//        tr.add(new BankBranch(new Coordinates(10, 19), "G", "G"));
-//
-//        tr.printTreePreOrder();
-//        System.out.println(tr.size());
-//        System.out.println(tr.find(new BankBranch(new Coordinates(17, 15), "C", "C")));
-//        System.out.println(tr.find(new BankBranch(new Coordinates(3, 6), " ", " ")));
-//        System.out.println(tr.find(new BankBranch(new Coordinates(10, 19), "C", "R")));
-//        System.out.println(tr.find(new BankBranch(new Coordinates(11, 19), "C", "R")));
-//        System.out.println(tr.find(new BankBranch(new Coordinates(17, 14), "C", "R")));
+        System.out.println(t.findNearest(new Coordinates(4, 4)));
     }
 
 }
