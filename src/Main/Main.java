@@ -119,8 +119,30 @@ public class Main {
                 System.out.println("Here are " + bn + "branches:\n");
                 cb.getBranches().printTreePreOrder();
             } else if (command.equals("nearB")) {
+                System.out.println("Searching for nearest Bank...\n");
+                System.out.println("Enter your coordinates ( like this pattern : x y) :");
+                int x = scanner.nextInt();
+                int y = scanner.nextInt();
+                Coordinates c = new Coordinates(x, y);
+                System.out.println("Here is the nearest Bank:");
+                System.out.println(centralBanks.findNearest(c));
 
             } else if (command.equals("nearBr")) {
+                System.out.println("Searching for nearest Branch...\n");
+                System.out.println("Enter your coordinates ( like this pattern : x y ) :");
+                int x = scanner.nextInt();
+                int y = scanner.nextInt();
+                Coordinates c = new Coordinates(x, y);
+                System.out.println("Enter Bank name:");
+                String bn = scanner.next();
+
+                CentralBank cb = (CentralBank) centralBanksList.search(bn);
+                if (cb == null) {
+                    System.err.println("** ERROR: this bank does not exist in database");
+                    continue;
+                }
+                System.out.println("Here is the nearest Branch:");
+                System.out.println(cb.getBranches().findNearest(c));
 
             } else if (command.equals("availB")) {
 
