@@ -145,7 +145,15 @@ public class Main {
                 System.out.println(cb.getBranches().findNearest(c));
 
             } else if (command.equals("availB")) {
-
+                System.out.println("Searching for available Banks in radius R...\n");
+                System.out.println("Enter coordinates:");
+                int x = scanner.nextInt();
+                int y = scanner.nextInt();
+                Coordinates c = new Coordinates(x, y);
+                System.out.println("Enter R:");
+                double R = scanner.nextDouble();
+                System.out.println("found banks in this area");
+                centralBanks.availableBanksInR(c, R);
             } else {
                 if (!command.equals("exit"))
                     System.err.println("** ERROR: Command is not valid");

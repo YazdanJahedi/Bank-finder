@@ -208,23 +208,64 @@ public class KdTree {
         System.err.println("** ERROR: there is no bank in database");
         return null;
     }
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    private void printBanksInR(Node root, Coordinates c, double R, int dpt) {
+        if (root == null) return;
+        double dist = Math.sqrt(Math.pow(root.bank.getCoordinates().getX() - c.getX(), 2) +
+                Math.pow(root.bank.getCoordinates().getY() - c.getY(), 2));
+
+        if (dist < R + 0.001) {
+            System.out.println(root.bank);
+            printBanksInR(root.l, c, R, dpt + 1);
+            printBanksInR(root.r, c, R, dpt + 1);
+        } else {
+            // based on x
+            if (dpt % k == 0) {
+                if (root.bank.getCoordinates().getX() < c.getX() && R < c.getX() - root.bank.getCoordinates().getX())
+                    printBanksInR(root.r, c, R, dpt + 1);
+                else if (root.bank.getCoordinates().getX() > c.getX() && R < root.bank.getCoordinates().getX() - c.getX())
+                    printBanksInR(root.l, c, R, dpt + 1);
+                else {
+                    printBanksInR(root.l, c, R, dpt + 1);
+                    printBanksInR(root.r, c, R, dpt + 1);
+                }
+            }
+            // based on y
+            else {
+                if (root.bank.getCoordinates().getY() < c.getY() && R < c.getY() - root.bank.getCoordinates().getY())
+                    printBanksInR(root.r, c, R, dpt + 1);
+                else if (root.bank.getCoordinates().getY() > c.getY() && R < root.bank.getCoordinates().getY() - c.getY())
+                    printBanksInR(root.l, c, R, dpt + 1);
+                else {
+                    printBanksInR(root.l, c, R, dpt + 1);
+                    printBanksInR(root.r, c, R, dpt + 1);
+                }
+            }
+        }
+    }
+
+    public void availableBanksInR(Coordinates c, double R) {
+        printBanksInR(root, c, R, 0);
+    }
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     public static void main(String[] args) {
         KdTree t = new KdTree();
-        t.add(new Bank(new Coordinates(3, 6), "A"));
-        t.add(new Bank(new Coordinates(2, 7), "B"));
-        t.add(new Bank(new Coordinates(17, 15), "C"));
-        t.add(new Bank(new Coordinates(6, 12), "D"));
-        t.add(new Bank(new Coordinates(9, 1), "E"));
-        t.add(new Bank(new Coordinates(13, 15), "F"));
-        t.add(new Bank(new Coordinates(10, 19), "G"));
+        t.add(new Bank(new Coordinates(2, 3), "A"));
+        t.add(new Bank(new Coordinates(1, 2), "B"));
+        t.add(new Bank(new Coordinates(3, 1), "C"));
+        t.add(new Bank(new Coordinates(3, 3), "D"));
+        t.add(new Bank(new Coordinates(2, 1), "E"));
+        t.add(new Bank(new Coordinates(1, 3), "F"));
+        t.add(new Bank(new Coordinates(1, 1), "J"));
+        t.add(new Bank(new Coordinates(3, 2), "G"));
+        t.add(new Bank(new Coordinates(2, 2), "H"));
 
         t.printTreePreOrder();
         System.out.println(t.size());
         System.out.println("~ ~ ~ ~ ~ ~ ");
-        System.out.println(t.findNearest(new Coordinates(4, 4)));
+        t.availableBanksInR(new Coordinates(3, 1), 1);
     }
 
 }
