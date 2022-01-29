@@ -26,7 +26,7 @@ public class Bank {
     }
 
     public boolean equals(Bank o) {
-        if(o == null) return false;
+        if (o == null) return false;
         return this.coordinates.equals(o.coordinates);
     }
 
