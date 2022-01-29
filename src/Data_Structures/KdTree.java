@@ -248,24 +248,68 @@ public class KdTree {
     public void availableBanksInR(Coordinates c, double R) {
         printBanksInR(root, c, R, 0);
     }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    private Node getMin(Node n1, Node n2, Node n3, int xOrY) {
+        Node min = n1;
+        if (xOrY == 0) {
+            if (n2 != null && n1 != null && n2.bank.getCoordinates().getX() < n1.bank.getCoordinates().getX())
+                min = n2;
+            if (n3 != null && min != null && n3.bank.getCoordinates().getX() < min.bank.getCoordinates().getX())
+                min = n3;
+        } else {
+            if (n2 != null && n1 != null && n2.bank.getCoordinates().getY() < n1.bank.getCoordinates().getY())
+                min = n2;
+            if (n3 != null && min != null && n3.bank.getCoordinates().getY() < min.bank.getCoordinates().getY())
+                min = n3;
+        }
+
+        return min;
+    }
+
+    private Node searchForMinimum(Node root, int xOrY, int dpt) {
+        if (root == null) return null;
+
+        if (dpt % k == xOrY) {
+            if (root.l == null)
+                return root;
+            else
+                return searchForMinimum(root.l, xOrY, dpt + 1);
+        }
+
+        return getMin(root,
+                searchForMinimum(root.l, xOrY, dpt + 1),
+                searchForMinimum(root.r, xOrY, dpt + 1),
+                xOrY);
+    }
+
+    public Node searchForMinimum(int xOrY) {
+        return searchForMinimum(root, xOrY, 0);
+    }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     public static void main(String[] args) {
         KdTree t = new KdTree();
-        t.add(new Bank(new Coordinates(2, 3), "A"));
-        t.add(new Bank(new Coordinates(1, 2), "B"));
-        t.add(new Bank(new Coordinates(3, 1), "C"));
-        t.add(new Bank(new Coordinates(3, 3), "D"));
-        t.add(new Bank(new Coordinates(2, 1), "E"));
-        t.add(new Bank(new Coordinates(1, 3), "F"));
-        t.add(new Bank(new Coordinates(1, 1), "J"));
-        t.add(new Bank(new Coordinates(3, 2), "G"));
-        t.add(new Bank(new Coordinates(2, 2), "H"));
+        t.add(new Bank(new Coordinates(30, 40), "A"));
+        t.add(new Bank(new Coordinates(5, 25), "B"));
+        t.add(new Bank(new Coordinates(10, 12), "C"));
+        t.add(new Bank(new Coordinates(70, 70), "D"));
+        t.add(new Bank(new Coordinates(50, 30), "E"));
+        t.add(new Bank(new Coordinates(35, 45), "F"));
+//        t.add(new Bank(new Coordinates(1, 1), "J"));
+//        t.add(new Bank(new Coordinates(3, 2), "G"));
+//        t.add(new Bank(new Coordinates(2, 2), "H"));
 
         t.printTreePreOrder();
         System.out.println(t.size());
         System.out.println("~ ~ ~ ~ ~ ~ ");
-        t.availableBanksInR(new Coordinates(3, 1), 1);
+
+        System.out.println(t.searchForMinimum(0));
+        System.out.println(t.searchForMinimum(1));
+
     }
 
 }
