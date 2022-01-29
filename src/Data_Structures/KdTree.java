@@ -287,8 +287,52 @@ public class KdTree {
         return searchForMinimum(root, xOrY, 0);
     }
 
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    public Node searchForMinimum(Node root, int xOrY) {
+        return searchForMinimum(root, xOrY, 0);
+    }
 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    private Node removeNode(Node root, Bank bank, int dpt) {
+        if (root == null) return null;
+
+        if (root.bank.equals(bank)) {
+            if (root.r != null) {
+                Node min = searchForMinimum(root.r, dpt % k);
+                root.bank = min.bank;
+                root.r = removeNode(root.r, min.bank, dpt + 1);
+            } else if (root.l != null) {
+                Node min = searchForMinimum(root.l, dpt % k);
+                root.bank = min.bank;
+                root.r = removeNode(root.l, min.bank, dpt + 1);
+            } else {
+                root = null;
+            }
+
+            return root;
+        }
+
+        // based on x
+        if (dpt % k == 0) {
+            if (bank.getCoordinates().getX() > root.bank.getCoordinates().getX())
+                root.r = removeNode(root.r, bank, dpt + 1);
+            else
+                root.l = removeNode(root.l, bank, dpt + 1);
+        }
+        // based on y
+        else {
+            if (bank.getCoordinates().getY() > root.bank.getCoordinates().getY())
+                root.r = removeNode(root.r, bank, dpt + 1);
+            else
+                root.l = removeNode(root.l, bank, dpt + 1);
+        }
+
+        return root;
+    }
+
+    public void removeNode(Bank bank) {
+        Node node = removeNode(root, bank, 0);
+        if (node != null) size--;
+    }
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     public static void main(String[] args) {
@@ -309,6 +353,17 @@ public class KdTree {
 
         System.out.println(t.searchForMinimum(0));
         System.out.println(t.searchForMinimum(1));
+
+        System.out.println("~ ~ ~ ~ ~ ~ ");
+        System.out.println("~ ~ ~ ~ ~ ~ ");
+        System.out.println("~ ~ ~ ~ ~ ~ ");
+        System.out.println("~ ~ ~ ~ ~ ~ ");
+
+//        t.removeNode(new Bank(new Coordinates(70, 70), "C"));
+        t.removeNode(new Bank(new Coordinates(30, 40), "C"));
+        t.printTreePreOrder();
+        System.out.println(t.size());
+
 
     }
 

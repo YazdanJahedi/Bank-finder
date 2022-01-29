@@ -1,10 +1,10 @@
 package Data;
 
-public class BankBranch extends Bank{
+public class BankBranch extends Bank {
     private final String branchName;
 
     public BankBranch(Coordinates coordinates, String bankName, String branchName) {
-        super(coordinates , bankName);
+        super(coordinates, bankName);
         this.branchName = branchName;
     }
 
