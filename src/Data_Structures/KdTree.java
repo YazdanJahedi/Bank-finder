@@ -303,7 +303,7 @@ public class KdTree {
             } else if (root.l != null) {
                 Node min = searchForMinimum(root.l, dpt % k);
                 root.bank = min.bank;
-                root.r = removeNode(root.l, min.bank, dpt + 1);
+                root.l = removeNode(root.l, min.bank, dpt + 1);
             } else {
                 root = null;
             }
@@ -359,8 +359,7 @@ public class KdTree {
         System.out.println("~ ~ ~ ~ ~ ~ ");
         System.out.println("~ ~ ~ ~ ~ ~ ");
 
-//        t.removeNode(new Bank(new Coordinates(70, 70), "C"));
-        t.removeNode(new Bank(new Coordinates(30, 40), "C"));
+        t.removeNode(new Bank(new Coordinates(345, 45), ""));
         t.printTreePreOrder();
         System.out.println(t.size());
 
