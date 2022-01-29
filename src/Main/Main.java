@@ -46,9 +46,6 @@ public class Main {
                 String dn = scanner.next();
                 districts.add(new District(c1, c2, c3, c4, dn));
 
-                districts.printTreePreorder();
-                System.out.println("~~ ~ ~ ~ ~ ~~  ");
-
             } else if (command.equals("addB")) {
                 System.out.println("Adding a new Bank...\n");
                 System.out.println("Enter Bank coordinates ( like this pattern: x y ):");
@@ -65,12 +62,6 @@ public class Main {
                 centralBanks.add(cb);
                 centralBanksList.add(cb);
 
-                System.out.println("Main Tree:");
-                centralBanks.printTreePreOrder();
-                System.out.println(" ~ ~ ~ ~ ~ ~ ~ ~");
-                System.out.println("Hashing list:");
-                centralBanksList.print();
-                System.out.println(" ~ ~ ~ ~ ~ ~ ~ ~");
             } else if (command.equals("addBr")) {
                 System.out.println("Adding a new Branch...\n");
                 System.out.println("Enter Branch coordinates ( like this pattern: x y ):");
@@ -91,10 +82,23 @@ public class Main {
                 }
                 cb.getBranches().add(br);
                 branches.add(br);
-                System.out.println("Main tree");
-                branches.printTreePreOrder();
-                System.out.println("~ ~ ~ ~~ ~~ ~ ~ ~");
+
             } else if (command.equals("delBr")) {
+                System.out.println("Deleting a branch...\n");
+                System.out.println("Enter coordinates:");
+                int x = scanner.nextInt();
+                int y = scanner.nextInt();
+                Coordinates c = new Coordinates(x, y);
+
+                BankBranch br = (BankBranch) branches.find(new BankBranch(c, "", ""));
+                if (br == null) {
+                    System.err.println("** ERROR: In this coordinated there is no branch");
+                    continue;
+                }
+
+                CentralBank cb = (CentralBank) centralBanksList.search(br.getBankName());
+                cb.getBranches().removeNode(br);
+                branches.removeNode(br);
 
             } else if (command.equals("listB")) {
                 System.out.println("Searching for Banks in a District...\n");
@@ -118,6 +122,7 @@ public class Main {
                 }
                 System.out.println("Here are " + bn + "branches:\n");
                 cb.getBranches().printTreePreOrder();
+
             } else if (command.equals("nearB")) {
                 System.out.println("Searching for nearest Bank...\n");
                 System.out.println("Enter your coordinates ( like this pattern : x y) :");
