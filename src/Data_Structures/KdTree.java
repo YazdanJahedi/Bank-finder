@@ -335,35 +335,4 @@ public class KdTree {
     }
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-    public static void main(String[] args) {
-        KdTree t = new KdTree();
-        t.add(new Bank(new Coordinates(30, 40), "A"));
-        t.add(new Bank(new Coordinates(5, 25), "B"));
-        t.add(new Bank(new Coordinates(10, 12), "C"));
-        t.add(new Bank(new Coordinates(70, 70), "D"));
-        t.add(new Bank(new Coordinates(50, 30), "E"));
-        t.add(new Bank(new Coordinates(35, 45), "F"));
-//        t.add(new Bank(new Coordinates(1, 1), "J"));
-//        t.add(new Bank(new Coordinates(3, 2), "G"));
-//        t.add(new Bank(new Coordinates(2, 2), "H"));
-
-        t.printTreePreOrder();
-        System.out.println(t.size());
-        System.out.println("~ ~ ~ ~ ~ ~ ");
-
-        System.out.println(t.searchForMinimum(0));
-        System.out.println(t.searchForMinimum(1));
-
-        System.out.println("~ ~ ~ ~ ~ ~ ");
-        System.out.println("~ ~ ~ ~ ~ ~ ");
-        System.out.println("~ ~ ~ ~ ~ ~ ");
-        System.out.println("~ ~ ~ ~ ~ ~ ");
-
-        t.removeNode(new Bank(new Coordinates(345, 45), ""));
-        t.printTreePreOrder();
-        System.out.println(t.size());
-
-
-    }
-
 }

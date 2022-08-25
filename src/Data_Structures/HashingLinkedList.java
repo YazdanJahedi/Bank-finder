@@ -129,32 +129,4 @@ public class HashingLinkedList {
         }
     }
 
-    public static void main(String[] args) {
-        HashingLinkedList a = new HashingLinkedList();
-        a.add(new CentralBank(new Coordinates(1, 2), "Abin"));
-        a.add(new CentralBank(new Coordinates(3, 4), "Alef"));
-        a.add(new CentralBank(new Coordinates(5, 6), "baba"));
-        a.add(new CentralBank(new Coordinates(6, 7), "bita"));
-        a.add(new CentralBank(new Coordinates(2, 3), "Boostan"));
-        a.add(new CentralBank(new Coordinates(1, 7), "cat"));
-        a.add(new CentralBank(new Coordinates(1, 7), "XX"));
-        a.add(new CentralBank(new Coordinates(1, 7), "categori"));
-        a.add(new CentralBank(new Coordinates(1, 7), "tiger"));
-        a.add(new CentralBank(new Coordinates(1, 7), "helloman"));
-        a.add(new CentralBank(new Coordinates(1, 7), "Zebra"));
-        a.print();
-        System.out.println("_________________________________________________________________");
-        System.out.println("_________________________________________________________________");
-        System.out.println(a.search(new CentralBank(new Coordinates(1, 7), "Zebra")));
-        System.out.println(a.search(new CentralBank(new Coordinates(1, 3), "Zebra")));
-        System.out.println(a.search(new CentralBank(new Coordinates(1, 7), "ali")));
-        System.out.println(a.search(new CentralBank(new Coordinates(1, 7), "tiger")));
-        System.out.println(a.search(new CentralBank(new Coordinates(1, 7), "tehran")));
-        System.out.println("_________________________________________________________________");
-        System.out.println("_________________________________________________________________");
-        System.out.println(a.search("bita"));
-        System.out.println(a.search("tiger"));
-        System.out.println(a.search("Abin"));
-        System.out.println(a.search("haha"));
-    }
 }
